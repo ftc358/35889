@@ -32,9 +32,9 @@ import com.acmerobotics.roadrunner.ftc.PositionVelocityPair;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -108,9 +108,9 @@ public final class MecanumDrive {
             new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
-    public final DcMotorEx lift, climb;
-    public final Servo claw1, claw2, wrist;
-    public final TouchSensor liftHome;
+    public final DcMotorEx lift, hang1,hang2, intake;
+    public final Servo out1,out2,rotate,launcher;
+    public final CRServo release;
 
     public final VoltageSensor voltageSensor;
 
@@ -225,13 +225,16 @@ public final class MecanumDrive {
         //Other Hardware
 
         lift = hardwareMap.get(DcMotorEx.class, "lift");
-        climb = hardwareMap.get(DcMotorEx.class, "climb");
+        hang1 = hardwareMap.get(DcMotorEx.class, "hang1");
+        hang2 = hardwareMap.get(DcMotorEx.class, "hang2");
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
 
-        claw1 = hardwareMap.get(Servo.class,"claw1");
-        claw2 = hardwareMap.get(Servo.class,"claw2");
-        wrist = hardwareMap.get(Servo.class,"wrist");
+        out1 = hardwareMap.get(Servo.class,"out1");
+        out2 = hardwareMap.get(Servo.class,"out2");
 
-        liftHome = hardwareMap.get(TouchSensor.class,"liftHome");
+        rotate = hardwareMap.get(Servo.class,"rotate");
+        launcher = hardwareMap.get(Servo.class, "launcher");
+        release = hardwareMap.get(CRServo.class,"release");
 
 
         imu = hardwareMap.get(IMU.class, "imu");
