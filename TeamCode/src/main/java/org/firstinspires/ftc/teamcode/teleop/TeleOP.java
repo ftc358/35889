@@ -20,21 +20,33 @@ public class TeleOP extends LinearOpMode {
     double intakePower = 0;
     double releasePower = 0;
     double liftPower = 0;
+    boolean slowflag;
+    double strafe;
+    double turn;
+    double straight;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        
+
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         waitForStart();
 
         while (opModeIsActive()) {
 
+            if (slowflag){
+                straight = (-gamepad1.left_stick_y/2 > 0.1) ? (-gamepad1.left_stick_y/2 + 0.26) : (-gamepad1.left_stick_y < -0.1) ? (-gamepad1.left_stick_y - 0.26) : 0;
+                strafe = (gamepad1.left_stick_x > 0.1) ? (gamepad1.left_stick_x/2 + 0.26) : (gamepad1.left_stick_x < -0.1) ? (gamepad1.left_stick_x/2 - 0.26) : 0;
+                turn = (gamepad1.right_stick_x > 0.1) ? (gamepad1.right_stick_x/2 + 0.26) : (gamepad1.right_stick_x < -0.1) ? (gamepad1.right_stick_x/2 - 0.26) : 0;
+            } else{
+                straight = (-gamepad1.left_stick_y > 0.1) ? (Math.pow(-gamepad1.left_stick_y, 3) + 0.26) : (-gamepad1.left_stick_y < -0.1) ? (Math.pow(-gamepad1.left_stick_y, 3) - 0.26) : 0;
+                strafe = (gamepad1.left_stick_x > 0.1) ? (Math.pow(gamepad1.left_stick_x, 3) + 0.26) : (gamepad1.left_stick_x < -0.1) ? (Math.pow(gamepad1.left_stick_x, 3) - 0.26) : 0;
+                turn = (gamepad1.right_stick_x > 0.1) ? (Math.pow(gamepad1.right_stick_x, 5) + 0.26) : (gamepad1.right_stick_x < -0.1) ? (Math.pow(gamepad1.right_stick_x, 5) - 0.26) : 0;
+            }
 
 
 
-
-            drive.setDrivePowers(new PoseVelocity2d(new Vector2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x), -gamepad1.right_stick_x));
+            drive.setDrivePowers(new PoseVelocity2d(new Vector2d(straight, strafe), turn));
             drive.updatePoseEstimate();
 
 
@@ -43,12 +55,9 @@ public class TeleOP extends LinearOpMode {
                 releasePower = 0.8;
             } else if (gamepad2.dpad_left) {
                 releasePower = -0.8;
-            } else {
-                releasePower = 0;
             }
-
             //Intake
-            if (gamepad2.left_bumper) {
+            else if (gamepad2.left_bumper) {
                 intakePower = 1;
                 releasePower = 0.8;
             } else if (gamepad2.left_trigger > 0.05) {
@@ -94,32 +103,6 @@ public class TeleOP extends LinearOpMode {
                 drive.rotate.setPosition(0);
                 telemetry.addData(">", "lift servo at rest");
             }
-
-//
-//            boolean pressed = false;
-//
-//            if ((gamepad2.a) && (pressed == false)){
-//                //do something-098765`11`234567890
-//                pressed = true;
-//            }
-//            else if ((gamepad2.a) && (pressed == true)){
-//                //do something
-//                pressed = false;
-//            }
-//
-////
-//            //bucket_turn (smaller radius)
-//            if (gamepad2.b) {
-//                drive.rotate.setPosition(0);
-//                telemetry.addData(">", "releasing pixel");
-//            } else {
-//                drive.rotate.setPosition(1);
-//                telemetry.addData(">", "not moving");
-//            }
-
-
-            //Bucket_release
-
 
             //hang
 //            boolean activated = false;
