@@ -46,7 +46,7 @@ public class TeleOP extends LinearOpMode {
 
 
 
-            drive.setDrivePowers(new PoseVelocity2d(new Vector2d(straight, strafe), turn));
+            drive.setDrivePowers(new PoseVelocity2d(new Vector2d(straight, -strafe), -turn));
             drive.updatePoseEstimate();
 
 
