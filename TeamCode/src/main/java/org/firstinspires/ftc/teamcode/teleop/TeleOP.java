@@ -58,11 +58,11 @@ public class TeleOP extends LinearOpMode {
             }
             //Intake
             else if (gamepad2.left_bumper) {
-                intakePower = 1;
-                releasePower = 0.8;
-            } else if (gamepad2.left_trigger > 0.05) {
                 intakePower = -1;
                 releasePower = -0.8;
+            } else if (gamepad2.left_trigger > 0.05) {
+                intakePower = 1;
+                releasePower = 0.8;
             } else {
                 intakePower = 0;
                 releasePower = 0;
