@@ -81,7 +81,7 @@ public class TeleOP extends LinearOpMode {
 
             //drone_launcher
             if (gamepad1.dpad_up) {
-                drive.launcher.setPosition(0.5);
+                drive.launcher.setPosition(0.9);
                 telemetry.addData(">", "launching drone");
             } else {
                 drive.launcher.setPosition(0.0);
@@ -93,11 +93,12 @@ public class TeleOP extends LinearOpMode {
             if (gamepad2.a) {
                 drive.out1.setPosition(0.53);
                 drive.out2.setPosition(0.17);
-//                telemetry.addData(">", "lift servo moving up");
-//                sleep(500);
+                telemetry.addData(">", "lift servo moving up");
+                sleep(500);
                 drive.rotate.setPosition(0.18);
 
-            } else {
+            }
+            if (gamepad2.b){
                 drive.out1.setPosition(0.18);
                 drive.out2.setPosition(0.53);
                 drive.rotate.setPosition(0);
