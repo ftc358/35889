@@ -94,11 +94,10 @@ public class TeleOP extends LinearOpMode {
                 drive.out1.setPosition(0.53);
                 drive.out2.setPosition(0.17);
                 telemetry.addData(">", "lift servo moving up");
-                sleep(500);
                 drive.rotate.setPosition(0.18);
 
             }
-            if (gamepad2.b){
+            else if (gamepad2.b){
                 drive.out1.setPosition(0.18);
                 drive.out2.setPosition(0.53);
                 drive.rotate.setPosition(0);

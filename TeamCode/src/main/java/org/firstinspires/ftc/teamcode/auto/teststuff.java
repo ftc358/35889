@@ -22,15 +22,6 @@ public class teststuff extends LinearOpMode {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(12, -60, Math.PI/2));
         waitForStart();
 
-//        drive.intake.setPower(1);
-//        sleep(2000);
-//        double servo1 =drive.out1.getPosition();
-//        double servo2 =drive.out2.getPosition();
-//
-//        telemetry.addData("servo 1", servo1);
-//        telemetry.addData("servo 2", servo2);
-//        telemetry.update();
-
         drive.lift.setPower(0.4);
         sleep(6500);
         drive.lift.setPower(0);
